@@ -20,11 +20,21 @@ const {
   const [modalOpen, setModalOpen] = useState(false)
 
     // User post qilish
+    const handlePost = () => {
+      reset({
+        firstName: '',
+        lastName: '',
+        email: ''
+      });
+    setModalOpen(true);
+    };
+
     const onSubmit = async(data) => {
       try {
         setLoading(true)
         const res = await request.post(LOGIN_CREATE, data)
         setUserData(prevData => [...prevData, data]) 
+        setModalOpen(false)
         toast.success("User created")
         console.log(res);
         reset()
@@ -116,7 +126,7 @@ const {
     <div className='container mx-auto'>
       <div className='flex justify-end px-4 py-10'>
         {/* Yangi User Qoshish buttoni */}
-        <button onClick={() => setModalOpen(true)} className='flex items-center gap-2 p-2 border border-black rounded-lg'>
+        <button onClick={() => handlePost()} className='flex items-center gap-2 p-2 border border-black rounded-lg'>
           New User
           <svg xmlns="http://www.w3.org/2000/svg" width={20} height={20} viewBox="0 0 24 24"><path fill="currentColor" d="M12 21q-.425 0-.712-.288T11 20v-7H4q-.425 0-.712-.288T3 12t.288-.712T4 11h7V4q0-.425.288-.712T12 3t.713.288T13 4v7h7q.425 0 .713.288T21 12t-.288.713T20 13h-7v7q0 .425-.288.713T12 21" /></svg>
         </button>
