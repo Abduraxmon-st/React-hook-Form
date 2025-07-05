@@ -18,6 +18,7 @@ const {
   const [loadingDelete, setLoadingDelete] = useState(false)
   const [userData, setUserData] = useState()
   const [modalOpen, setModalOpen] = useState(false)
+  const [refresh, setRefresh] = useState(false)
 
     // User post qilish
     const handlePost = () => {
@@ -33,7 +34,7 @@ const {
       try {
         setLoading(true)
         const res = await request.post(LOGIN_CREATE, data)
-        setUserData(prevData => [...prevData, data]) 
+        setRefresh(prev => !prev)
         setModalOpen(false)
         toast.success("User created")
         console.log(res);
@@ -64,7 +65,7 @@ const {
     };
 
     fetchData();
-    }, []);
+    }, [refresh]);
 
   // User Delete qilish
   const DeleteUser = (userId) => {
@@ -191,8 +192,8 @@ const {
         {/* Cardlar (Userlar)*/}
         <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4'>
           {
-            userData?.map((item) => (
-              <div key={item.id} className='flex flex-col gap-4 w-full p-4 border border-black rounded-3xl text-xl'>
+            userData?.map((item, index) => (
+              <div key={index} className='flex flex-col gap-4 w-full p-4 border border-black rounded-3xl text-xl'>
                 <div>
                   <p className='text-lg text-gray-500'>first name:</p>
                   <p className='line-clamp-1'>{item.firstName}</p>
