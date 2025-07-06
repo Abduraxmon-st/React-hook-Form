@@ -35,9 +35,9 @@ const {
         setLoading(true)
         const res = await request.post(LOGIN_CREATE, data)
         setRefresh(prev => !prev)
-        setModalOpen(false)
         toast.success("User created")
         console.log(res);
+        setModalOpen(false)
         reset()
       } catch (error) {
         setLoading(false)
